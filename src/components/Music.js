@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as AiIcons from "react-icons/ai";
-
+import './Track.css'
 const Music = ({ url }) => {
 
     const [Playing, setPlaying] = useState(true)
@@ -15,7 +15,7 @@ const Music = ({ url }) => {
   
     return (
       <>
-        <input type="button" value="play" onClick={() => play()} />
+        {Playing ? <AiIcons.AiFillPlayCircle className='child-icon' onClick={() => play()} /> :  <AiIcons.AiFillPauseCircle onClick={() => play()} />}
         <audio
           src={url}
           ref={audioRef}

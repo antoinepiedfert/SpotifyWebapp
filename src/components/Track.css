@@ -1,0 +1,33 @@
+.parent{
+    /*border-color: aquamarine;
+    border-width: 2px;
+    border-style: solid;*/
+    width: 120%;
+}
+
+.parent:hover {
+    background-color: rgb(45, 82, 119)
+}
+
+.child-info{
+    position: relative;
+    top: -20px;
+    left: 10%;
+}
+
+.child-icon{
+    position: relative;
+    top: 25px;
+    left: 0px;
+    cursor: pointer;
+}
+
+.child-name{
+
+    font-size: 20px;
+}
+
+.child-artist{
+
+    font-size: 16px;
+}

@@ -4,6 +4,7 @@ import axios from 'axios';
 import {useEffect, useState} from 'react';
 import '../components/Tracklist.css'
 import Music from '../components/Music'
+import Track from '../components/Track'
 
 function Reports({token}) {
 
@@ -52,11 +53,16 @@ function Reports({token}) {
     if (elem) {
     for (let i = 0; i < elem.length; i++) {
       if (elem[i].id === id) {
-        return elem[i][key]
+        if (key==='tempo' && elem[i][key]>40){
+          return elem[i][key]/2
+        }
+        else {
+          return elem[i][key]
+        }
       }
     }
   }
-  }
+}
 
   function Search() {
     setData([])
@@ -107,7 +113,6 @@ function Reports({token}) {
   }
   
   
-
   if (DisplayBPM && DisplayPreviews) {
       return <div className='App-header'>
       <form action='Search'>
@@ -120,7 +125,7 @@ function Reports({token}) {
       <ul >
           {Data.map((track) => (
           <li className='tracklist-text'>
-           <div> <Music url={findElementbyId(Previews, track.id, 'preview_url')}/> {track.name}, {track.artists[0].name}, {findElementbyId(Musicaldata, track.id, 'tempo')}</div>
+            <Track track={track} finder={findElementbyId} audiofeat={Musicaldata} trackdetails={Previews}/>
           </li>
           ))}
            
