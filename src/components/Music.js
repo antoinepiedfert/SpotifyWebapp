@@ -1,37 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as AiIcons from "react-icons/ai";
 
-const useAudio = url => {
-  const [audio] = useState(new Audio(url));
-  const [playing, setPlaying] = useState(false);
-
-  const toggle = () => setPlaying(!playing);
-
-  useEffect(() => {
-      playing ? audio.play() : audio.pause();
-    },
-    [playing]
-  );
-
-  useEffect(() => {
-    audio.addEventListener('ended', () => setPlaying(false));
-    return () => {
-      audio.removeEventListener('ended', () => setPlaying(false));
-    };
-  }, []);
-
-  return [playing, toggle];
-};
-
 const Music = ({ url }) => {
-  
-  const [playing, toggle] = useAudio(url);
 
-  return (
-    <div>
-      {!playing ? <AiIcons.AiFillPlayCircle onClick={toggle}/> : <AiIcons.AiFillPauseCircle onClick={toggle}/>}
-    </div>
-  );
-};
+    const [Playing, setPlaying] = useState(true)
+
+    const audioRef = useRef(null);
+
+    const play = (url) => {
+      if (Playing) {audioRef.current.play();}
+      else {audioRef.current.pause();}
+      setPlaying(!Playing)
+    };
+  
+    return (
+      <>
+        <input type="button" value="play" onClick={() => play()} />
+        <audio
+          src={url}
+          ref={audioRef}
+        ></audio>
+      </>
+    );
+  }
+  
 
 export default Music;

@@ -49,11 +49,8 @@ function Reports({token}) {
   },[Musicaldata])
 
   function findElementbyId(elem, id, key) {
-    console.log(elem)
-    console.log(id)
     if (elem) {
     for (let i = 0; i < elem.length; i++) {
-
       if (elem[i].id === id) {
         return elem[i][key]
       }
@@ -104,10 +101,13 @@ function Reports({token}) {
    request
    .then(result => {
     setMusicaldata(result.data.audio_features)
+    console.log(result.data.audio_features)
    })
    .catch(error => console.error('(1) Inside error:', error))
   }
   
+  
+
   if (DisplayBPM && DisplayPreviews) {
       return <div className='App-header'>
       <form action='Search'>
@@ -120,7 +120,7 @@ function Reports({token}) {
       <ul >
           {Data.map((track) => (
           <li className='tracklist-text'>
-           <div> <Music url={findElementbyId(Previews, track.id, 'preview_url')}/> {track.name}, {track.artists[0].name} </div>
+           <div> <Music url={findElementbyId(Previews, track.id, 'preview_url')}/> {track.name}, {track.artists[0].name}, {findElementbyId(Musicaldata, track.id, 'tempo')}</div>
           </li>
           ))}
            
