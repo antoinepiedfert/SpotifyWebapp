@@ -3,6 +3,7 @@
     border-width: 2px;
     border-style: solid;*/
     width: 120%;
+    border-radius: 10px;
 }
 
 .parent:hover {
