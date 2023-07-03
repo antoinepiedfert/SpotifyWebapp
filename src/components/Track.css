@@ -1,9 +1,10 @@
 .parent{
-    /*border-color: aquamarine;
+    border-color: aquamarine;
     border-width: 2px;
-    border-style: solid;*/
-    width: 120%;
+    border-style: solid;
     border-radius: 10px;
+    min-width: 100vh;
+    width: 50%
 }
 
 .parent:hover {

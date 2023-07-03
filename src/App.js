@@ -48,7 +48,7 @@ function App() {
                   </div>:
         <Routes>
             <Route path='/' exact element={<Homepage token={token}/>}/>
-            <Route path='/reports' element={<Reports token={token}/>}/>
+            <Route path='/search' element={<Reports token={token}/>}/>
             <Route path='/askchatgpt' element={<Askchatgpt/>}/>
         </Routes>}
     </Router> 

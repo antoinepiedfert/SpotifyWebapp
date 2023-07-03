@@ -15,7 +15,7 @@ const Music = ({ url }) => {
   
     return (
       <>
-        {Playing ? <AiIcons.AiFillPlayCircle className='child-icon' onClick={() => play()} /> :  <AiIcons.AiFillPauseCircle onClick={() => play()} />}
+        {Playing ? <AiIcons.AiFillPlayCircle className='child-icon' onClick={() => play()} /> :  <AiIcons.AiFillPauseCircle className='child-icon' onClick={() => play()} />}
         <audio
           src={url}
           ref={audioRef}

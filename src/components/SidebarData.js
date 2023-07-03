@@ -3,6 +3,7 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import * as TbIcons from "react-icons/tb";
+import * as LuIcons from "react-icons/lu";
 
 export const SidebarData = [
     {
@@ -12,21 +13,21 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
-        title: 'Reports',
-        path: '/reports',
-        icon: <IoIcons.IoIosPaper />,
+        title: 'Basic Search',
+        path: '/search',
+        icon: <TbIcons.TbZoomQuestion />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Advanced Search',
+        path: '/advanced',
+        icon: <LuIcons.LuMicroscope />,
         cName: 'nav-text'
     },
     {
         title: 'Ask ChatGPT',
         path: '/askchatgpt',
-        icon: <TbIcons.TbZoomQuestion />,
-        cName: 'nav-text'
-    },
-    {
-        title: 'Team',
-        path: '/team',
-        icon: <IoIcons.IoMdPeople />,
+        icon: <FaIcons.FaRobot />,
         cName: 'nav-text'
     },
     {

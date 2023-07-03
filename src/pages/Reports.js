@@ -16,7 +16,7 @@ function Reports({token}) {
   const [Previews, setPreviews] = useState({})
   const [Musicaldata, setMusicaldata] = useState({})
   const [Imported, setImported] = useState(false)
-  const [Count, setCount] = useState(0)
+  const [Artist, setArtist] = useState("")
 
   useEffect(() => {
     if (Data.length > 0){
@@ -76,7 +76,7 @@ function Reports({token}) {
     const config = {
       headers:{'Authorization': `Bearer ${token}`}
     };
-    const request = axios.get('https://api.spotify.com/v1/search?q=artist%3Arihanna&type=track&limit=3', config) 
+    const request = axios.get('https://api.spotify.com/v1/search?q=artist%3A' + Artist + '&type=track&limit=3', config) 
 
    request
    .then(result => {
@@ -112,13 +112,15 @@ function Reports({token}) {
    .catch(error => console.error('(1) Inside error:', error))
   }
   
-  
+  const handleChange = (event) => {
+    const artist = event.target.value
+    setArtist(artist)
+  }
+
   if (DisplayBPM && DisplayPreviews) {
       return <div className='App-header'>
       <form action='Search'>
-        <input type='text' placeholder='Select a musical genre' />
-        <input type='text' placeholder='Select a BPM' />
-        <input type='text' placeholder='Select an artist' />
+        <input type='text' placeholder='Select an artist' onChange={handleChange}/>
       </form>
       <button onClick={Search}> SEARCH </button>
       { Data ? <div>
@@ -138,9 +140,7 @@ function Reports({token}) {
   return (
     <div className='App-header'>
       <form action='Search'>
-        <input type='text' placeholder='Select a musical genre' />
-        <input type='text' placeholder='Select a BPM' />
-        <input type='text' placeholder='Select an artist' />
+        <input type='text' placeholder='Select an artist' onChange={handleChange}/>
       </form>
       <button onClick={Search}> SEARCH </button>
       
