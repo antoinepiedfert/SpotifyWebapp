@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './pages/Homepage'
 import Reports from './pages/Reports'
 import Askchatgpt from './pages/Askchatgpt'
+import Advanced from './pages/Advanced'
 import Navbar from './components/Navbar';
 import './pages/Homepage.css';
 import {useEffect, useState} from 'react';
@@ -50,6 +51,7 @@ function App() {
             <Route path='/' exact element={<Homepage token={token}/>}/>
             <Route path='/search' element={<Reports token={token}/>}/>
             <Route path='/askchatgpt' element={<Askchatgpt/>}/>
+            <Route path='/advanced' element={<Advanced token={token}/>}/>
         </Routes>}
     </Router> 
     

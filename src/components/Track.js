@@ -23,17 +23,25 @@ function Track({track, finder, audiofeat, trackdetails}) {
         get_artists_names(track.artists)
     })
 
+    //
+    //
+
+    if (trackdetails && audiofeat) {
   return (
-    <div className=''>   
+    <div >   
         <div className='parent'> 
-            <Music className='child-icon' url={finder(trackdetails, track.id, 'preview_url')}/>
+        <Music className='child-icon' url={finder(trackdetails, track.id, 'preview_url')}/>
             <div className='child-info'>
                 <div className='child-name'> {track.name} </div>
                 <div className='child-artist'> {Artists} </div>
             </div>
+            <div className='child-features'> {Number(finder(audiofeat, track.id, 'tempo')).toFixed()} </div>
         </div>
     </div>
   )
+  } else {
+    return <></>
+  }
 }
 
 export default Track

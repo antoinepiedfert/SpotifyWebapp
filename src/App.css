@@ -27,6 +27,19 @@
   border-style: solid;
 }
 
+.App-header-flexh {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  border-color: aquamarine;
+  border-width: 2px;
+  border-style: solid;
+}
+
 .App-link {
   color: #61dafb;
 }

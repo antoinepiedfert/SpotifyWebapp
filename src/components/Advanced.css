@@ -1,0 +1,31 @@
+.child-left{
+    border-color: aquamarine;
+    border-width: 2px;
+    border-style: solid;
+    width:48%;
+    float:left;
+    height:100%;
+
+}
+
+.child-right{
+    border-color: aquamarine;
+    border-width: 2px;
+    border-style: solid;
+    width:48%;
+    float: right;
+    height:100%;
+
+}
+
+.Sliderbox{
+    border-color: aquamarine;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
+    width:50%;
+}
+
+.Sliderbox:hover {
+    background-color: rgb(45, 82, 119)
+}
