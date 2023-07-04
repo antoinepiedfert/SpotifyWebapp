@@ -1,9 +1,10 @@
 .parent{
-    border-color: rgb(157, 255, 127);
+    border-color: rgb(197, 240, 183);
     border-width: 2px;
     border-style: solid;
     border-radius: 10px;
     min-width: 50vh;
+    height: 25vh;
     
 }
 

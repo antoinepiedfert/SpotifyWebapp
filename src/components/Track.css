@@ -1,5 +1,5 @@
 .parent{
-    border-color: rgb(157, 255, 127);
+    border-color: rgb(233, 233, 233);
     border-width: 2px;
     border-style: solid;
     border-radius: 10px;
@@ -7,6 +7,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 15vh;
+    width: 100%;
     
 }
 
@@ -27,7 +29,8 @@
     border-width: 2px;
     border-style: solid;
     border-radius: 10px;
-    flex-grow: 1;
+    width: 40%;
+    height: 100%;
 }
 
 .child-icon{
@@ -49,5 +52,6 @@
 }
 
 .child-features{
+    width: 7%;
     float: right;
 }

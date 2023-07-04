@@ -35,9 +35,10 @@
   justify-content:  flex-start;
   font-size: calc(10px + 2vmin);
   color: white;
-  border-color: aquamarine;
+  border-color: rgb(242, 255, 127);
   border-width: 2px;
   border-style: solid;
+  width:100%
 }
 
 .App-link {
