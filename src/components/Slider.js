@@ -2,11 +2,14 @@ import React from 'react'
 import './Advanced.css'
 import { useState } from 'react'
 
-function Slider( {variable, var_name, handler}) {
+function Slider( {variable, var_name, handler, clicker}) {
 
     const [Checked, setChecked] = useState(false)
 
-    const handleChange = (event) => {setChecked(!Checked)}
+    const handleChange = (event) => {
+        setChecked(!Checked)
+        clicker()
+    }
 
     
 

@@ -1,0 +1,39 @@
+.parent{
+    border-color: rgb(157, 255, 127);
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
+    min-width: 50vh;
+    
+}
+
+.parent:hover {
+    background-color: rgb(45, 82, 119)
+}
+
+.child-info{
+    position: relative;
+    top: -20px;
+    left: 10%;
+}
+
+.child-icon{
+    position: relative;
+    top: 25px;
+    left: 0px;
+    cursor: pointer;
+}
+
+.child-name{
+    font-size: 20px;
+}
+
+.child-artist{
+    font-size: 16px;
+}
+
+.child-features{
+    position: relative;
+    float: right;
+    top: -60px;
+}

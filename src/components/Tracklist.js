@@ -13,10 +13,7 @@ function Tracklist( {tracks, token} ) {
     const [DisplayBPM, setDisplayBPM] = useState(false)
 
     function findElementbyId(elem, id, key) {
-        //console.log('Dans finder', elem)
-        //console.log(id)
-        console.log('dans finder', elem.length, elem)
-        if (elem.length > 0) {
+        if (elem.length > 1) {
         for (let i = 0; i < elem.length; i++) {
           if (elem[i].id === id) {
             if (key==='tempo' && elem[i][key]>140){

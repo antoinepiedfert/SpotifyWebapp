@@ -5,7 +5,9 @@
     width:48%;
     float:left;
     height:100%;
-
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .child-right{
@@ -15,7 +17,8 @@
     width:48%;
     float: right;
     height:100%;
-
+    justify-content: flex-start;
+    
 }
 
 .Sliderbox{
@@ -24,6 +27,7 @@
     border-style: solid;
     border-radius: 10px;
     width:50%;
+    
 }
 
 .Sliderbox:hover {
