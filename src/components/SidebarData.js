@@ -3,7 +3,7 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import * as TbIcons from "react-icons/tb";
-import * as LuIcons from "react-icons/lu";
+import * as GiIcons from "react-icons/gi";
 
 export const SidebarData = [
     {
@@ -19,9 +19,9 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
-        title: 'Advanced Search',
-        path: '/advanced',
-        icon: <LuIcons.LuMicroscope />,
+        title: 'Find Inspiration',
+        path: '/inspiration',
+        icon: <GiIcons.GiInspiration />,
         cName: 'nav-text'
     },
     {

@@ -5,7 +5,6 @@ import '../components/Advanced.css'
 import Slider from '../components/Slider'
 import axios from 'axios';
 import Tracklist from '../components/Tracklist'
-import TextInput from 'react-autocomplete-input'
 
 function Advanced( {token} ) {
 
@@ -70,12 +69,12 @@ function Advanced( {token} ) {
          })
          .catch(error => {
             setArtistID('');
-            setSearchover(true);}
+            setSearchover(true)
+            }
             )
     }        
     
     function Extensivesearch() {
-      //https://api.spotify.com/v1/recommendations?seed_genres=classical%2Ccountry'
       console.log(ENDPOINT + '/recommendations?' + Url )
         const config = {
             headers:{'Authorization': `Bearer ${token}`}
@@ -85,21 +84,17 @@ function Advanced( {token} ) {
       
          request
          .then(result => {
-            console.log('result')
             setTracks(result.data.tracks)
+            setSearchover(false)
          })
          .catch(error => console.log(error))
     }   
 
     useEffect(() => {
-        if (Searchover) {
+        if (Searchover === true && Url != '') {
             Extensivesearch()
         }
-    }, [Searchover])
-
-    useEffect(() => {
-        console.log(Tracks)
-    }, [Tracks])
+    }, [Url, Searchover])
 
     useEffect(() => {
         let newUrl = []
@@ -112,13 +107,13 @@ function Advanced( {token} ) {
         if (Genres.length > 0) {newUrl.push('seed_genres=' + Genres.join('%2C'))}
         if (ArtistID != '') {newUrl.push('seed_artists=' + ArtistID)}
         const myUrl = newUrl.join('&')
-        setUrl(myUrl) 
+        setUrl(myUrl)
 
     }, [CheckD, CheckE, CheckLi, CheckLo, CheckI, CheckA, Danceability, Acousticness, Liveness, Loudness, Instrumentalness, Energy, Genres, ArtistID])
 
     const handleChange = (event) => {
       let genres_copy = [...Genres]
-      if (genres_copy.length <= 5) {
+      if (genres_copy.length < 5) {
         genres_copy.push(event.target.value)
         setGenres(genres_copy)
       }
@@ -142,15 +137,21 @@ function Advanced( {token} ) {
         <Slider variable={Instrumentalness} var_name='Instrumentalness' handler={(event) => {setInstrumentalness(event.target.value)}} clicker={() => setCheckI(!CheckI)}/>
         <Slider variable={Liveness} var_name='Liveness' handler={(event) => {setLiveness(event.target.value)}} clicker={() => setCheckLi(!CheckLi)}/>
         <Slider variable={Loudness} var_name='Loudness' handler={(event) => {setLoudness(event.target.value)}} clicker={() => setCheckLo(!CheckLo)}/>
-        {Genres.map(genre => <div > {genre} <button onClick={() => {removegenre(genre)}}> x </button></div>)}
+
+        
+
+        <div className='lowerbox'>
         <form action='Search'>
         <input type='text' placeholder='Select an artist' onChange={handleChangeArtist}/>
         </form>
-        <button onClick={Search}> SEARCH </button>
+        
         <select onChange={(e) => handleChange(e)}>
         {available_genres.map(genre => <option value={genre}>{genre}</option>)}
         </select>
-       
+        <button className='button-34' onClick={Search}> Find Inspiration </button>
+
+        </div>
+        {Genres.map(genre => <div >  <button className='button-34' onClick={() => {removegenre(genre)}}> {genre} </button></div>)}
         </div>
         <div className='child-right'>
         {Tracks ? <Tracklist tracks={Tracks} token={token}/> : <></>}

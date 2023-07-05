@@ -22,6 +22,7 @@
     border-style: solid;
     border-radius: 10px;
     flex-grow: 1;
+    max-width: 45%;
 }
 
 .child-graph{
@@ -34,13 +35,29 @@
 }
 
 .child-icon{
-    border-color: rgb(172, 127, 255);
+    border-color: rgb(127, 255, 238);
     border-width: 2px;
     border-style: solid;
     border-radius: 10px;
-    position: relative;
-
     cursor: pointer;
+    position:relative;
+    width:10%;
+    height:50%
+}
+
+
+.image1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+
+.image2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+
 }
 
 .child-name{

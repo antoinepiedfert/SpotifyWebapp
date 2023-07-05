@@ -11,7 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-
+import Ticker from 'react-ticker'
 
 //<div className='child-BPM'> {finder(audiofeat, track.id, 'tempo')} </div>
 
@@ -58,19 +58,26 @@ function Track({track, audiofeat, trackdetails}) {
       ],
     };
 
+    function returnBPM(bpm){
+      if (bpm > 140) {return bpm/2.}
+      else {return bpm}
+    }
+
+    //<div className='child-features'> {Number(audiofeat.tempo).toFixed()} </div>
+
   if ((trackdetails) && (audiofeat)) {
   return (
-    <div >   
+
         <div className='parent'> 
-        <Music className='child-icon' url={trackdetails.preview_url}/>
+        <Music url={trackdetails.preview_url} imag={trackdetails.album.images[2].url}/>
             <div className='child-info'>
-                <div className='child-name'> {track.name} </div>
+                <TextTicker duration={3000} loop bounce className='child-name'> {track.name} </TextTicker>
                 <div className='child-artist'> {Artists} </div>
             </div>
             <div className='child-graph'> <Bar options={options} data={data}/> </div>
-            <div className='child-features'> {Number(audiofeat.tempo).toFixed()} </div>
+            <div className='child-features'> {returnBPM(Number(audiofeat.tempo).toFixed())} </div>  
         </div>
-    </div>
+
   )
   } else {
     return <></>

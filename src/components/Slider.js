@@ -15,10 +15,10 @@ function Slider( {variable, var_name, handler, clicker}) {
 
   return (
     <div className='Sliderbox'>
-    <div>{var_name} {variable}</div>
-    <input type='checkbox' onChange={handleChange}/>
-    <input type='range' min={0}  max={100} defaultValue={0} onChange={handler} disabled={!Checked}/>
-    
+    <input className='checkbox' style={{transform: "scale(2)"}} type='checkbox' onChange={handleChange}/>
+    <div className='varname' >{var_name} </div>
+    <input className='slider' type='range' min={0}  max={100} defaultValue={0} onChange={handler} disabled={!Checked} />
+    <div className='varvalue'>{variable}</div>
     </div>
   )
 }
