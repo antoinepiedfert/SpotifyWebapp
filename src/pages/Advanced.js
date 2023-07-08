@@ -6,6 +6,7 @@ import Slider from '../components/Slider'
 import axios from 'axios';
 import Tracklist from '../components/Tracklist'
 
+
 function Advanced( {token} ) {
 
     const ENDPOINT = 'https://api.spotify.com/v1'
@@ -55,7 +56,7 @@ function Advanced( {token} ) {
         setArtistID('')
         setSearchover(false)
         setTracks(false)
-        console.log('Artist:', Artist)
+
         const config = {
             headers:{'Authorization': `Bearer ${token}`}
           };
@@ -75,7 +76,7 @@ function Advanced( {token} ) {
     }        
     
     function Extensivesearch() {
-      console.log(ENDPOINT + '/recommendations?' + Url )
+
         const config = {
             headers:{'Authorization': `Bearer ${token}`}
           };
@@ -91,7 +92,7 @@ function Advanced( {token} ) {
     }   
 
     useEffect(() => {
-        if (Searchover === true && Url != '') {
+        if (Searchover === true && Url !== '') {
             Extensivesearch()
         }
     }, [Url, Searchover])
@@ -105,10 +106,9 @@ function Advanced( {token} ) {
         if (CheckI) {newUrl.push('target_instrumentalness=' + Instrumentalness/100.)}
         if (CheckE) {newUrl.push('target_energy=' + Energy/100.)}
         if (Genres.length > 0) {newUrl.push('seed_genres=' + Genres.join('%2C'))}
-        if (ArtistID != '') {newUrl.push('seed_artists=' + ArtistID)}
+        if (ArtistID !== '') {newUrl.push('seed_artists=' + ArtistID)}
         const myUrl = newUrl.join('&')
         setUrl(myUrl)
-
     }, [CheckD, CheckE, CheckLi, CheckLo, CheckI, CheckA, Danceability, Acousticness, Liveness, Loudness, Instrumentalness, Energy, Genres, ArtistID])
 
     const handleChange = (event) => {
@@ -136,16 +136,14 @@ function Advanced( {token} ) {
         <Slider variable={Energy} var_name='Energy' handler={(event) => {setEnergy(event.target.value)}} clicker={() => setCheckE(!CheckE)}/>
         <Slider variable={Instrumentalness} var_name='Instrumentalness' handler={(event) => {setInstrumentalness(event.target.value)}} clicker={() => setCheckI(!CheckI)}/>
         <Slider variable={Liveness} var_name='Liveness' handler={(event) => {setLiveness(event.target.value)}} clicker={() => setCheckLi(!CheckLi)}/>
-        <Slider variable={Loudness} var_name='Loudness' handler={(event) => {setLoudness(event.target.value)}} clicker={() => setCheckLo(!CheckLo)}/>
-
-        
+        <Slider variable={Loudness} var_name='Loudness' handler={(event) => {setLoudness(event.target.value)}} clicker={() => setCheckLo(!CheckLo)}/>       
 
         <div className='lowerbox'>
         <form action='Search'>
         <input type='text' placeholder='Select an artist' onChange={handleChangeArtist}/>
         </form>
         
-        <select onChange={(e) => handleChange(e)}>
+        <select className='select-box' onChange={(e) => handleChange(e)}>
         {available_genres.map(genre => <option value={genre}>{genre}</option>)}
         </select>
         <button className='button-34' onClick={Search}> Find Inspiration </button>

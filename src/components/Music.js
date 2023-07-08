@@ -17,8 +17,10 @@ const Music = ({ url, imag }) => {
     return (
       <div className='child-icon'>
         <img className='image1' src={imag}/>
-        {Playing ? <AiIcons.AiFillPlayCircle className="image2" onClick={() => play()} /> :  <AiIcons.AiFillPauseCircle className="image2" onClick={() => play()} />}
-      
+        {url ? <> 
+        {Playing ? <AiIcons.AiFillPlayCircle className="image2" onClick={() => play()} /> :  <AiIcons.AiFillPauseCircle className="image2" onClick={() => play()} />}</>:
+        <></>
+        }
         <audio src={url} ref={audioRef}/>
       </div>
     );

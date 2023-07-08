@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
+import * as GiIcons from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { SidebarData } from './SidebarData';
 import './Navbar.css';
+import '../App.css'
 
 function Navbar({logout, token}) {
     
@@ -17,7 +19,7 @@ function Navbar({logout, token}) {
                 <FaIcons.FaBars onClick={showSidebar} height='100%'/>
             </Link>
             {token ? <div className="buttonbox">
-                <button className='button' onClick={logout}>logout</button>
+                <button className='button-34' onClick={logout}>logout</button>
             </div>  : <></>}
         </div>
         

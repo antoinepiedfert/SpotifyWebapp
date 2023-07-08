@@ -1,19 +1,26 @@
 import './App.css';
+import './pages/Homepage.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+
 import Homepage from './pages/Homepage'
 import Reports from './pages/Reports'
 import Askchatgpt from './pages/Askchatgpt'
 import Advanced from './pages/Advanced'
+import Explore from './pages/Explore';
+
 import Navbar from './components/Navbar';
-import './pages/Homepage.css';
-import {useEffect, useState} from 'react';
+
+
+
 
 function App() {
   const CLIENT_ID = "3f7ff583423148ddbc94e907e1e604df"
   const REDIRECT_URI = "http://localhost:3000"
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
-  const SCOPE = ["user-library-read", "playlist-read-private", "user-read-playback-state", "user-modify-playback-state"]
+  const SCOPE = ["user-library-read", "playlist-read-private", "user-read-playback-state", "user-modify-playback-state", "user-library-modify",
+                 "playlist-read-collaborative"]
 
   const [token, setToken] = useState("")
 
@@ -52,6 +59,7 @@ function App() {
             <Route path='/search' element={<Reports token={token}/>}/>
             <Route path='/askchatgpt' element={<Askchatgpt/>}/>
             <Route path='/inspiration' element={<Advanced token={token}/>}/>
+            <Route path='/explore' element={<Explore token={token}/>}/>
         </Routes>}
     </Router> 
     

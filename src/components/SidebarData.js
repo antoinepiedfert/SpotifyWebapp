@@ -31,6 +31,12 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
+        title: 'Explore your playlists',
+        path: '/explore',
+        icon: <FaIcons.FaRobot />,
+        cName: 'nav-text'
+    },
+    {
         title: 'Messages',
         path: '/messages',
         icon: <FaIcons.FaEnvelope />,

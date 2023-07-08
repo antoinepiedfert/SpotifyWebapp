@@ -15,7 +15,7 @@ function Reports({token}) {
     const config = {
       headers:{'Authorization': `Bearer ${token}`}
     };
-    const request = axios.get('https://api.spotify.com/v1/search?q=artist%3A' + Artist + '&type=track&limit=3', config) 
+    const request = axios.get('https://api.spotify.com/v1/search?q=artist%3A' + Artist + '&type=track&limit=49', config) 
 
    request
    .then(result => {setData(result.data.tracks.items)})
@@ -31,8 +31,8 @@ function Reports({token}) {
     <div className='App-header'>
       <form action='Search'>
         <input type='text' placeholder='Select an artist' onChange={handleChange}/>
+        <button className='button-34' onClick={Search}> Search </button>
       </form>
-      <button onClick={Search}> SEARCH </button>
       {Data ? <Tracklist tracks={Data} token={token}/> : <></>}
     </div>)
 

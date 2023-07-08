@@ -1,5 +1,5 @@
 .parent{
-    border-color: rgb(233, 233, 233);
+    border-color: rgb(94, 133, 179);
     border-width: 2px;
     border-style: solid;
     border-radius: 10px;
@@ -17,47 +17,39 @@
 }
 
 .child-info{
-    border-color: rgb(255, 127, 165);
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 10px;
-    flex-grow: 1;
-    max-width: 45%;
+
+    width: 45%;
 }
 
 .child-graph{
-    border-color: rgb(255, 232, 127);
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 10px;
+
     width: 40%;
     height: 100%;
 }
 
 .child-icon{
-    border-color: rgb(127, 255, 238);
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 10px;
-    cursor: pointer;
+
+
     position:relative;
     width:10%;
-    height:50%
+    height:100%
 }
 
 
 .image1 {
-    position: absolute;
-    top: 0;
-    left: 0;
-
+    position: relative;
+    width:100%;
+    top:50%;
+    transform: translateY(-50%);
 }
 
 .image2 {
     position: absolute;
-    top: 0;
-    left: 0;
-
+    top: 40%;
+    left: 50%;
+    transform: translateY(-50%);
+    transform: translateX(-50%);
+    cursor: pointer;
 }
 
 .child-name{
@@ -71,4 +63,38 @@
 .child-features{
     width: 7%;
     float: right;
+}
+.child-name{
+    font-size: 25px;
+}
+
+/* Make it a marquee */
+.marquee {
+    margin: 0 auto;
+
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.marquee:hover span {
+    display: inline-block;
+    
+    animation: marquee 5s linear infinite;
+}
+
+/* Make it move */
+@keyframes marquee {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+.Buttonsbox{
+    display: flex;
+    border-color: rgb(94, 169, 179);
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
+
+    justify-content: space-evenly;
+    align-items: center;
 }
