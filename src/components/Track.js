@@ -11,13 +11,18 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import Ticker from 'react-ticker'
+import LikeButton from './LikeButton';
+import PlusButton from './PlusButton';
+import * as FaIcons from 'react-icons/fa';
 
-//<div className='child-BPM'> {finder(audiofeat, track.id, 'tempo')} </div>
 
-function Track({track, audiofeat, trackdetails}) {
+
+//<div className='child-BPM'> {finder(track.audio_features, track.id, 'tempo')} </div>
+
+function Track({track, token, Playlists}) {
 
     const [Artists, setArtists] = useState([])
+
     function get_artists_names (artists) {
         const temp_artists = []
         if (artists){
@@ -43,39 +48,42 @@ function Track({track, audiofeat, trackdetails}) {
     );
     
      const options = {
-      responsive: true,
-    };
+      plugins: {
+          legend: {
+              display: false,
+          }}};
     
     const labels = ['D', 'A', 'I', 'Lo', 'Li', 'E'];
-    
-     const data = {
-      labels,
-      datasets: [
-        {
-          data: [audiofeat.danceability*100., audiofeat.acousticness*100., audiofeat.instrumentalness*100., audiofeat.loudness/(-60.), audiofeat.liveness*100., audiofeat.energy*100.],
-          backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        },
-      ],
-    };
 
     function returnBPM(bpm){
-      if (bpm > 140) {return bpm/2.}
-      else {return bpm}
+      /*if (bpm > 140) {return bpm/2.}
+      else {return bpm}*/
+      return bpm
     }
 
-    //<div className='child-features'> {Number(audiofeat.tempo).toFixed()} </div>
-
-  if ((trackdetails) && (audiofeat)) {
+  if ((track.track_details) && (track.audio_features)) {
   return (
 
         <div className='parent'> 
-        <Music url={trackdetails.preview_url} imag={trackdetails.album.images[2].url}/>
+        <Music url={track.track_details.preview_url} imag={track.track_details.album.images[2].url}/>
             <div className='child-info'>
-                <TextTicker duration={3000} loop bounce className='child-name'> {track.name} </TextTicker>
-                <div className='child-artist'> {Artists} </div>
+                <p className='marquee child-name'> <span>{track.name}</span>  </p>
+                <p className='marquee child-artist'> <span>{Artists}</span>  </p>
+                <div className='Buttonsbox'> 
+                  <LikeButton  id={track.id} token={token} like={track.liked}/>
+                  {track.external_urls.spotify ? <a href={track.external_urls.spotify}><FaIcons.FaSpotify title="Open in Spotify"/></a> : <></>}
+                  <PlusButton Playlists={Playlists} TrackURI={track.uri} token={token}/>
+                     </div>
             </div>
-            <div className='child-graph'> <Bar options={options} data={data}/> </div>
-            <div className='child-features'> {returnBPM(Number(audiofeat.tempo).toFixed())} </div>  
+            <div className='child-graph'> 
+              {track.audio_features.danceability ? 
+                <Bar options={options} data={{labels, datasets: [{data: [track.audio_features.danceability*100., track.audio_features.acousticness*100.,
+                       track.audio_features.instrumentalness*100., track.audio_features.loudness/(-60.), track.audio_features.liveness*100., track.audio_features.energy*100.],
+                                              backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(255, 159, 64, 0.2)', 'rgba(255, 205, 86, 0.2)',
+                                                                'rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)',
+                                                                'rgba(201, 203, 207, 0.2)'] }]}}/> : <></>} 
+            </div>
+            <div className='child-features' title='Beats Per Minute'> {returnBPM(Number(track.audio_features.tempo).toFixed())} </div>  
         </div>
 
   )

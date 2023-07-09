@@ -25,6 +25,12 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
+        title: 'Explore your playlists',
+        path: '/explore',
+        icon: <GiIcons.GiInspiration />,
+        cName: 'nav-text'
+    },
+    {
         title: 'Ask ChatGPT',
         path: '/askchatgpt',
         icon: <FaIcons.FaRobot />,

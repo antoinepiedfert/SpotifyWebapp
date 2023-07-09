@@ -5,13 +5,12 @@ import {useEffect, useState} from 'react';
 import '../components/Tracklist.css'
 import Tracklist from '../components/Tracklist'
 
-function Reports({token}) {
+function Reports({token, Playlists}) {
 
   const [Data, setData] = useState([])
   const [Artist, setArtist] = useState("")
  
   function Search() {
-
     const config = {
       headers:{'Authorization': `Bearer ${token}`}
     };
@@ -33,7 +32,7 @@ function Reports({token}) {
         <input type='text' placeholder='Select an artist' onChange={handleChange}/>
       </form>
       <button onClick={Search}> SEARCH </button>
-      {Data ? <Tracklist tracks={Data} token={token}/> : <></>}
+      {Data ? <Tracklist tracks={Data} token={token} Playlists={Playlists}/> : <></>}
     </div>)
 
 

@@ -6,7 +6,7 @@ import Slider from '../components/Slider'
 import axios from 'axios';
 import Tracklist from '../components/Tracklist'
 
-function Advanced( {token} ) {
+function Advanced( {token, Playlists} ) {
 
     const ENDPOINT = 'https://api.spotify.com/v1'
 
@@ -154,7 +154,7 @@ function Advanced( {token} ) {
         {Genres.map(genre => <div >  <button className='button-34' onClick={() => {removegenre(genre)}}> {genre} </button></div>)}
         </div>
         <div className='child-right'>
-        {Tracks ? <Tracklist tracks={Tracks} token={token}/> : <></>}
+        {Tracks ? <Tracklist tracks={Tracks} token={token} Playlists={Playlists}/> : <></>}
         </div>
     </div>
   )
