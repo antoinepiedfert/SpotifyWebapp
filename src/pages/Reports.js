@@ -9,8 +9,10 @@ function Reports({token, Playlists}) {
 
   const [Data, setData] = useState([])
   const [Artist, setArtist] = useState("")
+  const [Display, setDisplay] = useState(false)
  
   function Search() {
+    setDisplay(false)
     const config = {
       headers:{'Authorization': `Bearer ${token}`}
     };
@@ -26,13 +28,19 @@ function Reports({token, Playlists}) {
     setArtist(artist)
   }
 
+  useEffect(() => {
+    if (Data.length > 0){
+      setDisplay(true)
+    }
+  }, [Data])
+
     return (
     <div className='App-header'>
       <form action='Search'>
         <input type='text' placeholder='Select an artist' onChange={handleChange}/>
       </form>
       <button onClick={Search}> SEARCH </button>
-      {Data ? <Tracklist tracks={Data} token={token} Playlists={Playlists}/> : <></>}
+      {Display ? <Tracklist tracks={Data} token={token} Playlists={Playlists}/> : <></>}
     </div>)
 
 
