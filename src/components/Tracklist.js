@@ -16,17 +16,28 @@ function Tracklist( {tracks, token, Playlists} ) {
   const [Improvedtracks, setImprovedtracks] = useState(false)
 
 
-  
-
-  function findElementbyId(elem, id) {
-      if (elem.length > 1) {
-      for (let i = 0; i < elem.length; i++) {
-        if (elem[i].id === id) {
-            return elem[i]
+    function findMusicaldatabyId(id) { 
+        if (Previews.length > 1) {
+        for (let i = 0; i < Previews.length; i++) {
+          //console.log("Searching pr", Previews[i].id, id)
+          if (Previews[i].id === id) {
+              return Previews[i]
+            } 
           }
         }
       }
-    }
+    
+    function findPreviewsbyId(id) { 
+        if (Musicaldata.length > 1) {
+        for (let i = 0; i < Musicaldata.length; i++) {
+          //console.log("Searching MD", Musicaldata[i].id, id)
+          if (Musicaldata[i].id === id) {
+              return Musicaldata[i]
+            } 
+          }
+        }
+      }
+
 
   useEffect(() => {
       if (tracks.length > 0){
@@ -60,13 +71,15 @@ function Tracklist( {tracks, token, Playlists} ) {
     },[Likes])
 
     useEffect(()=> {
+      console.log(DisplayBPM , DisplayLikes , DisplayPreviews , !Improvedtracks, DisplayBPM && DisplayLikes && DisplayPreviews && !Improvedtracks)
       if (DisplayBPM && DisplayLikes && DisplayPreviews && !Improvedtracks){
         for (let i=0 ; i<tracks.length ; i++){
-          tracks[i]['audio_features'] = findElementbyId(Musicaldata, tracks[i].id)
-          tracks[i]['track_details'] = findElementbyId(Previews, tracks[i].id)
+          tracks[i]['audio_features'] = findPreviewsbyId(tracks[i].id)
+          tracks[i]['track_details'] = findMusicaldatabyId(tracks[i].id)
           tracks[i]['liked'] = Likes[i]
         }
         setTracks(tracks)
+        console.log(tracks)
         setImprovedtracks(true)
       }
     },[DisplayBPM, DisplayLikes, DisplayPreviews])
@@ -141,9 +154,12 @@ function Tracklist( {tracks, token, Playlists} ) {
     .catch(error => console.error('(1) Inside error:', error))
     }
 
-    const filters = ['filter by...', 'BPM', 'name', 'artist']
+    const filters = ['filter by...', 'BPM', 'name', 'artist','popularity', 'release date', 'duration']
     function handleChange(event) {
       let sortedtracks = [...tracks]
+      console.log(' BEFORE SORTING', sortedtracks)
+      //for (let i =0 ; i < sortedtracks.length ; i++) {console.log(sortedtracks[i].name)
+      //                                                console.log(sortedtracks[i].audio_features.tempo)}
       if (event.target.value === 'BPM') {
         sortedtracks = sortedtracks.sort(
           (t1, t2) => (t1.audio_features.tempo < t2.audio_features.tempo) ? 1 :
@@ -159,11 +175,16 @@ function Tracklist( {tracks, token, Playlists} ) {
           (t1, t2) => (t1.artists[0].name < t2.artists[0].name) ? 1 :
           (t1.artists[0].name > t2.artists[0].name) ? -1 : 0);
         } 
+        else if  (event.target.value === 'popularity') {
+          sortedtracks = sortedtracks.sort(
+            (t1, t2) => (t1.popularity < t2.popularity) ? 1 :
+            (t1.popularity > t2.popularity) ? -1 : 0);
+          } 
       setTracks(sortedtracks) 
-      console.log(sortedtracks)
+      console.log(' AFETR  SORTING', sortedtracks)
     }
 
-  if (DisplayPreviews && DisplayBPM && DisplayLikes && Improvedtracks) {
+  if (DisplayPreviews && DisplayBPM && DisplayLikes && Improvedtracks && Tracks.length > 0) {
     return (
     <div>
       <select className='select-box' onChange={(e) => handleChange(e)}>

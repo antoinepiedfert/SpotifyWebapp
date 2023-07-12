@@ -4,7 +4,8 @@ import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { SidebarData } from './SidebarData';
 import './Navbar.css';
-
+import '../App.css';
+import { IconContext } from "react-icons";
 function Navbar({logout, token}) {
     
     const [sidebar, setSidebar] = useState(false)
@@ -14,10 +15,12 @@ function Navbar({logout, token}) {
     <div>
         <div className="navbar">
             <Link to="#" className='menu-bars'>
+            <IconContext.Provider value={{ color: "#BFCDE0"}}>
                 <FaIcons.FaBars onClick={showSidebar} height='100%'/>
+            </IconContext.Provider>
             </Link>
             {token ? <div className="buttonbox">
-                <button className='button' onClick={logout}>logout</button>
+                <button className='button-34' onClick={logout}>logout</button>
             </div>  : <></>}
         </div>
         
@@ -30,10 +33,10 @@ function Navbar({logout, token}) {
                 </li>
                 {SidebarData.map((item, index) => {
                     return (
-                        <li key={index} className={item.cName}>
-                            <Link to={item.path}>
+                        <li  key={index} className={item.cName}>
+                            <Link to={item.path} >
                                 {item.icon}
-                                <span>
+                                <span >
                                     {item.title}
                                 </span>
                             </Link>

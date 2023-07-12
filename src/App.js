@@ -12,7 +12,7 @@ import axios from 'axios';
 
 function App() {
     const CLIENT_ID = "3f7ff583423148ddbc94e907e1e604df"
-    const REDIRECT_URI = "http://localhost:3000"
+    const REDIRECT_URI = "http://localhost:3000"//"https://antoinepiedfert.github.io/SpotifyWebapp" 
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
     const SCOPE = ["user-library-read", "playlist-read-private", "user-read-playback-state", "user-modify-playback-state", "user-library-modify", "playlist-read-collaborative", "playlist-modify-public", "playlist-modify-private"]

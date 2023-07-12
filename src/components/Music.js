@@ -12,7 +12,6 @@ const Music = ({ url, imag }) => {
       else {audioRef.current.pause();}
       setPlaying(!Playing)
     };
-//
 
     return (
       <div className='child-icon'>

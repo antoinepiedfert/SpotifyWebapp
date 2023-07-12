@@ -9,7 +9,7 @@ import Tracklist from '../components/Tracklist'
 function Advanced( {token, Playlists} ) {
 
     const ENDPOINT = 'https://api.spotify.com/v1'
-
+    const [Happiness, setHappiness] = useState(0)
     const [Danceability, setDanceability] = useState(0)
     const [Acousticness, setAcousticness] = useState(0)
     const [Energy, setEnergy] = useState(0)
@@ -27,6 +27,7 @@ function Advanced( {token, Playlists} ) {
     const [CheckLo, setCheckLo] = useState(false)
     const [CheckE, setCheckE] = useState(false)
     const [CheckI, setCheckI] = useState(false)
+    const [CheckH, setCheckH] = useState(false)
     const [Genres, setGenres] = useState([])
 
     const available_genres = ["acoustic", "afrobeat", "alt-rock", "alternative", "ambient", "anime",
@@ -104,6 +105,7 @@ function Advanced( {token, Playlists} ) {
         if (CheckLo) {newUrl.push('target_loudness=' + Loudness/100.)}
         if (CheckI) {newUrl.push('target_instrumentalness=' + Instrumentalness/100.)}
         if (CheckE) {newUrl.push('target_energy=' + Energy/100.)}
+        if (CheckH) {newUrl.push('target_valence=' + Happiness/100.)}
         if (Genres.length > 0) {newUrl.push('seed_genres=' + Genres.join('%2C'))}
         if (ArtistID != '') {newUrl.push('seed_artists=' + ArtistID)}
         const myUrl = newUrl.join('&')
@@ -130,13 +132,14 @@ function Advanced( {token, Playlists} ) {
 
   return (
     <div className='App-header-flexh'>
-        <div className='child-left'>
+      <div className='child-up'>
+        <div className='child-sliders'>
         <Slider variable={Danceability} var_name='Danceability' handler={(event) => {setDanceability(event.target.value)}} clicker={() => setCheckD(!CheckD)} />
         <Slider variable={Acousticness} var_name='Acousticness' handler={(event) => {setAcousticness(event.target.value)}} clicker={() => setCheckA(!CheckA)}/>
         <Slider variable={Energy} var_name='Energy' handler={(event) => {setEnergy(event.target.value)}} clicker={() => setCheckE(!CheckE)}/>
         <Slider variable={Instrumentalness} var_name='Instrumentalness' handler={(event) => {setInstrumentalness(event.target.value)}} clicker={() => setCheckI(!CheckI)}/>
         <Slider variable={Liveness} var_name='Liveness' handler={(event) => {setLiveness(event.target.value)}} clicker={() => setCheckLi(!CheckLi)}/>
-        <Slider variable={Loudness} var_name='Loudness' handler={(event) => {setLoudness(event.target.value)}} clicker={() => setCheckLo(!CheckLo)}/>
+        <Slider variable={Happiness} var_name='Happiness' handler={(event) => {setHappiness(event.target.value)}} clicker={() => setCheckH(!CheckH)}/>
 
         
 
@@ -153,8 +156,11 @@ function Advanced( {token, Playlists} ) {
         </div>
         {Genres.map(genre => <div >  <button className='button-34' onClick={() => {removegenre(genre)}}> {genre} </button></div>)}
         </div>
-        <div className='child-right'>
+      </div> 
+      <div> 
+        <div className='child-do'>
         {Tracks ? <Tracklist tracks={Tracks} token={token} Playlists={Playlists}/> : <></>}
+        </div>
         </div>
     </div>
   )

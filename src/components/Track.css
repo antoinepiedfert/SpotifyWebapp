@@ -1,5 +1,5 @@
 .parent{
-    border-color: rgb(94, 133, 179);
+    border-color: #5D5D81;
     border-width: 2px;
     border-style: solid;
     border-radius: 10px;
@@ -8,32 +8,38 @@
     justify-content: space-between;
     align-items: center;
     height: 15vh;
-    width: 100%;
+    width: 75%;
     
 }
 
 .parent:hover {
-    background-color: rgb(45, 82, 119)
+    background-color: #5D5D81
 }
 
 .child-info{
-
-    width: 45%;
+    width: 40%;
 }
 
 .child-graph{
-
-    width: 40%;
+    width: 25%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .child-icon{
-    
     position:relative;
     width:10%;
     height:100%;
     z-index: 0;
 }
+
+.child-image{
+    display: flex;
+    flex-direction: column;
+}
+
 
 
 .image1 {
@@ -64,8 +70,18 @@
 }
 
 .child-features{
-    width: 7%;
     float: right;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 25px;
+}
+
+.featurebox{
+    width:30%;
+    display: flex;
+    justify-content: space-between;
+
 }
 
 /* Make it a marquee */
@@ -90,13 +106,9 @@
 
 .Buttonsbox{
     display: flex;
-    border-color: rgb(94, 169, 179);
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 10px;
-
     justify-content: space-evenly;
-    align-items: center;
+
+    width:100%;
 }
 
 .PlusButton{
@@ -105,4 +117,5 @@
 
 .LikeButton{
     cursor: pointer;
+    transform: translateY(10%);
 }

@@ -46,7 +46,7 @@ export default function PlusButton({token, Playlists, TrackURI}) {
 
   return (
     <div>
-      <AiIcons.AiOutlinePlus className='LikeButton' title="Add to playlist"
+      <AiIcons.AiOutlinePlus className='PlusButton' title="Add to playlist"
         id="fade-button"
         aria-controls={open ? 'fade-menu' : undefined}
         aria-haspopup="true"
