@@ -4,16 +4,21 @@ import axios from 'axios';
 import {useEffect, useState} from 'react';
 import '../components/Tracklist.css'
 import Tracklist from '../components/Tracklist'
+import Albumlist from '../components/Albumlist'
 
-function Reports({token, Playlists}) {
+function Reports({token, playlists}) {
 
-  const [Data, setData] = useState([])
+  const [DataA, setDataA] = useState([])
+  const [DataT, setDataT] = useState([])
   const [Keyword, setKeyword] = useState("")
   const [Year, setYear] = useState("")
   const [Artist, setArtist] = useState("")
   const [Url, setUrl] = useState("")
-  const [Display, setDisplay] = useState(false)
+  const [DisplayT, setDisplayT] = useState(false)
+  const [DisplayA, setDisplayA] = useState(false)
   const [Genres, setGenres] = useState([])
+  const [New, setNew] = useState(false)
+  const [Hipster, setHipster] = useState(false)
 
   const available_genres = ["acoustic", "afrobeat", "alt-rock", "alternative", "ambient", "anime",
   "black-metal", "bluegrass", "blues", "bossanova", "brazil", "breakbeat", "british", "cantopop",
@@ -31,15 +36,17 @@ function Reports({token, Playlists}) {
   "sertanejo", "show-tunes", "singer-songwriter", "ska", "sleep", "songwriter", "soul", "soundtracks",
   "spanish", "study", "summer", "swedish", "synth-pop", "tango", "techno", "trance", "trip-hop", "turkish",
   "work-out", "world-music"]
+
   function Search() {
-    setDisplay(false)
-    const config = {
-      headers:{'Authorization': `Bearer ${token}`}
-    };
-    const request = axios.get('https://api.spotify.com/v1/search?q=' + Url + '&type=track&limit=3', config) 
+    setDisplayT(false)
+    setDisplayA(false)
+    const config = {headers:{'Authorization': `Bearer ${token}`}};
+    const request = axios.get('https://api.spotify.com/v1/search?q=' + Url , config) 
 
    request
-   .then(result => {setData(result.data.tracks.items)})
+   .then(result => {  console.log(result)
+                      if (New || Hipster){setDataA(result.data.albums.items)} else {setDataT(result.data.tracks.items)}
+                    })
    .catch(error => console.error('(1) Inside error:', error))
   }
 
@@ -63,15 +70,30 @@ function Reports({token, Playlists}) {
 
     if (Year !== '') {url += '%20year:' + Year}
     if (Artist !== '') {url += '%20artist:' + Artist}
-
+    if (Genres.length > 0 && !New && !Hipster) {url += '%20genre:' + Genres.join('%20')}
+    if (New) {url += '%20tag:new'}
+    if (Hipster) {url += '%20tag:hipster'}
+    if (New || Hipster) {url += '&type=album&limit=50'} else {url += '&type=track&limit=50'}
+    console.log(url)
     setUrl(url)
-  }, [Year, Artist, Keyword])
+  }, [Year, Artist, Keyword, Genres, New, Hipster])
 
   useEffect(() => {
-    if (Data.length > 0){
-      setDisplay(true)
+    if (DataA.length > 0){
+      setDisplayA(true)
     }
-  }, [Data])
+  }, [DataA])
+
+  useEffect(() => {
+    if (DataT.length > 0){
+      setDisplayT(true)
+      setDisplayA(false)
+    } 
+    if (DataA.length > 0){
+      setDisplayA(true)
+      setDisplayT(false)
+    } 
+  }, [DataT, DataA])
 
   const handleChangeG = (event) => {
     let genres_copy = [...Genres]
@@ -99,13 +121,18 @@ function Reports({token, Playlists}) {
         <select onChange={(e) => handleChangeG(e)}>
         {available_genres.map(genre => <option value={genre}>{genre}</option>)}
         </select>
-        <button className='button-34' onClick={Search}> Find Inspiration </button>
-      
-        {Genres.map(genre => <div >  <button className='button-34' onClick={() => {removegenre(genre)}}> {genre} </button></div>)}
         
       </form>
-      <button onClick={Search}> SEARCH </button>
-      {Display ? <Tracklist tracks={Data} token={token} Playlists={Playlists}/> : <></>}
+      <input className='checkbox' style={{transform: "scale(2)"}} type='checkbox' onChange={() => {setNew(!New)}}/>
+      <>New</>
+      <input className='checkbox' style={{transform: "scale(2)"}} type='checkbox' onChange={() => {setHipster(!Hipster)}}/>
+      <>Hipster</>
+
+      <button className='button-34' onClick={Search}> Search </button>
+
+      {Genres.map(genre => <div><button className='button-34' onClick={() => {removegenre(genre)}}> {genre} </button></div>)}
+      {DisplayT ? <Tracklist tracks={DataT} token={token} Playlists={playlists}/> : <></>}
+      {DisplayA ? <Albumlist albums={DataA} token={token} playlists={playlists}/> : <></>}
     </div>)
 
 

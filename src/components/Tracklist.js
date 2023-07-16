@@ -15,9 +15,8 @@ function Tracklist( {tracks, token, Playlists} ) {
   const [Tracks, setTracks] = useState(tracks)
   const [Improvedtracks, setImprovedtracks] = useState(false)
 
-
     function findMusicaldatabyId(id) { 
-        if (Previews.length > 1) {
+        if (Previews.length > 0) {
         for (let i = 0; i < Previews.length; i++) {
           //console.log("Searching pr", Previews[i].id, id)
           if (Previews[i].id === id) {
@@ -28,7 +27,7 @@ function Tracklist( {tracks, token, Playlists} ) {
       }
     
     function findPreviewsbyId(id) { 
-        if (Musicaldata.length > 1) {
+        if (Musicaldata.length > 0) {
         for (let i = 0; i < Musicaldata.length; i++) {
           //console.log("Searching MD", Musicaldata[i].id, id)
           if (Musicaldata[i].id === id) {
@@ -53,19 +52,19 @@ function Tracklist( {tracks, token, Playlists} ) {
     }, [tracks])
 
     useEffect(() => {
-      if (Previews.length > 1){
+      if (Previews.length > 0){
         setDisplayPreviews(true)
       }
     },[Previews])
   
     useEffect(() => {
-      if (Musicaldata.length > 1){
+      if (Musicaldata.length > 0){
         setDisplayBPM(true)
       }
     },[Musicaldata])
 
     useEffect(() => {
-      if (Likes.length > 1){
+      if (Likes.length > 0){
         setDisplayLikes(true)
       }
     },[Likes])
@@ -181,7 +180,7 @@ function Tracklist( {tracks, token, Playlists} ) {
             (t1.popularity > t2.popularity) ? -1 : 0);
           } 
       setTracks(sortedtracks) 
-      console.log(' AFETR  SORTING', sortedtracks)
+      console.log(' AFTER  SORTING', sortedtracks)
     }
 
   if (DisplayPreviews && DisplayBPM && DisplayLikes && Improvedtracks && Tracks.length > 0) {

@@ -99,7 +99,7 @@ function App() {
                   </div>:
         <Routes>
             <Route path='/' exact element={<Homepage Me={Me}/>}/>
-            <Route path='/search' element={<Reports token={token} Playlists={MyPlaylists}/>}/>
+            <Route path='/search' element={<Reports token={token} playlists={MyPlaylists}/>}/>
             <Route path='/askchatgpt' element={<Askchatgpt/>}/>
             <Route path='/inspiration' element={<Advanced token={token} Playlists={MyPlaylists}/>}/>
             <Route path='/explore' element={<Explore token={token} playlists={Playlists} MyPlaylists={MyPlaylists}/>}/>
