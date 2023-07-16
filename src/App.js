@@ -94,7 +94,7 @@ function App() {
     <Router>
         <Navbar logout={logout} token={token}/>
         {!Display? <div className='App-header'>
-          <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE.join('%20')}&response_type=${RESPONSE_TYPE}`}>Login
+          <a style={{ textDecoration: 'none', color:'white' }} href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE.join('%20')}&response_type=${RESPONSE_TYPE}`}>Login
                       to Spotify</a>
                   </div>:
         <Routes>
