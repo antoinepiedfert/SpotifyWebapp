@@ -5,10 +5,10 @@
     border-radius: 10px;
     min-width: 100vh;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     height: 15vh;
-    width: 75%;
+    
 }
 
 .parent:hover {
@@ -16,7 +16,7 @@
 }
 
 .child-info{
-    width: 75%;
+    width: 80%;
 }
 
 .child-icon{
@@ -27,8 +27,7 @@
 }
 
 .child-image{
-    display: flex;
-    flex-direction: column;
+    width:10%;
 }
 
 .child-name{
@@ -43,7 +42,6 @@
 /* Make it a marquee */
 .marquee {
     margin: 0 auto;
-
     white-space: nowrap;
     overflow: hidden;
 }
@@ -72,6 +70,13 @@
 }
 
 .LikeButton{
+
     cursor: pointer;
     transform: translateY(10%);
+}
+
+.UnfoldButton{
+    cursor: pointer;
+    transform: translateY(10%);
+    width:10%;
 }

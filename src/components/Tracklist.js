@@ -2,6 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Track from './Track'
+import '../App.css'
+import Select from 'react-select'
 
 function Tracklist( {tracks, token, Playlists} ) {
 
@@ -16,27 +18,19 @@ function Tracklist( {tracks, token, Playlists} ) {
   const [Improvedtracks, setImprovedtracks] = useState(false)
 
     function findMusicaldatabyId(id) { 
-        if (Previews.length > 0) {
-        for (let i = 0; i < Previews.length; i++) {
-          //console.log("Searching pr", Previews[i].id, id)
-          if (Previews[i].id === id) {
-              return Previews[i]
-            } 
-          }
-        }
-      }
+      if (Previews.length > 0) {
+      for (let i = 0; i < Previews.length; i++) {
+        if (Previews[i].id === id) {
+            return Previews[i]}}}
+    }
     
     function findPreviewsbyId(id) { 
-        if (Musicaldata.length > 0) {
-        for (let i = 0; i < Musicaldata.length; i++) {
-          //console.log("Searching MD", Musicaldata[i].id, id)
-          if (Musicaldata[i].id === id) {
-              return Musicaldata[i]
-            } 
-          }
-        }
-      }
-
+      if (Musicaldata.length > 0) {
+      for (let i = 0; i < Musicaldata.length; i++) {
+        //console.log("Searching MD", Musicaldata[i].id, id)
+        if (Musicaldata[i].id === id) {
+            return Musicaldata[i]}}}
+    }
 
   useEffect(() => {
       if (tracks.length > 0){
@@ -153,42 +147,66 @@ function Tracklist( {tracks, token, Playlists} ) {
     .catch(error => console.error('(1) Inside error:', error))
     }
 
-    const filters = ['filter by...', 'BPM', 'name', 'artist','popularity', 'release date', 'duration']
+    const options = [{value:'Filter by...', label:'Filter by...'},{value:'BPM', label:'BPM'}, {value:'name', label:'name'},
+                    {value:'artist', label:'artist'}, {value:'popularity', label:'popularity'},
+                    {value:'release date', label:'release date'}, {value:'duration', label:'duration'},]
+
     function handleChange(event) {
+      console.log(event.value)
       let sortedtracks = [...tracks]
       console.log(' BEFORE SORTING', sortedtracks)
       //for (let i =0 ; i < sortedtracks.length ; i++) {console.log(sortedtracks[i].name)
       //                                                console.log(sortedtracks[i].audio_features.tempo)}
-      if (event.target.value === 'BPM') {
+      if (event.value === 'BPM') {
         sortedtracks = sortedtracks.sort(
           (t1, t2) => (t1.audio_features.tempo < t2.audio_features.tempo) ? 1 :
           (t1.audio_features.tempo > t2.audio_features.tempo) ? -1 : 0);
         } 
-      else if  (event.target.value === 'name') {
+      else if  (event.value === 'name') {
         sortedtracks = sortedtracks.sort(
           (t1, t2) => (t1.name < t2.name) ? 1 :
           (t1.name > t2.name) ? -1 : 0);
         } 
-      else if  (event.target.value === 'artist') {
+      else if  (event.value === 'artist') {
         sortedtracks = sortedtracks.sort(
           (t1, t2) => (t1.artists[0].name < t2.artists[0].name) ? 1 :
           (t1.artists[0].name > t2.artists[0].name) ? -1 : 0);
         } 
-        else if  (event.target.value === 'popularity') {
+        else if  (event.value === 'popularity') {
           sortedtracks = sortedtracks.sort(
             (t1, t2) => (t1.popularity < t2.popularity) ? 1 :
             (t1.popularity > t2.popularity) ? -1 : 0);
           } 
       setTracks(sortedtracks) 
-      console.log(' AFTER  SORTING', sortedtracks)
     }
 
+   
   if (DisplayPreviews && DisplayBPM && DisplayLikes && Improvedtracks && Tracks.length > 0) {
     return (
     <div>
-      <select className='select-box' onChange={(e) => handleChange(e)}>
-        {filters.map(filter => <option value={filter}>{filter}</option>)}
-      </select>
+      <div class="box">
+        <Select onChange={(e) => handleChange(e)} options={options} theme={(theme) => ({
+                                                                                        ...theme,
+                                                                                        borderRadius: 0,
+                                                                                        colors: {
+                                                                                          ...theme.colors,
+                                                                                          primary25: '#5D5D81',
+                                                                                          primary: '#5D5D81',
+                                                                                          neutral0: '#3B3355',
+                                                                                          neutral90: 'white',
+                                                                                          neutral10: 'white',
+                                                                                          neutral20: 'white',
+                                                                                          neutral30: 'white',
+                                                                                          neutral40: 'white',
+                                                                                          neutral50: 'white',
+                                                                                         neutral60: 'white',
+                                                                                         neutral70: 'white',
+                                                                                         neutral80: 'white',
+                                                                                        },
+                                                                                      })
+                                                                            }
+        />
+      </div>
     <ul >
         {Tracks.map((track) => (
         <li className='tracklist-text'>

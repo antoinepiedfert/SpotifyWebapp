@@ -59,8 +59,8 @@ function Album({album, token, playlists}) {
                 <font title={"Release date : " +  album.release_date} size="4">{album.release_date.split('-')[0]}</font > 
               </div>
           </div>
-          {!Unfold ? <VscIcons.VscFoldDown title='See tracks' className='LikeButton' onClick={unfold}/> :
-                    <VscIcons.VscFoldUp title='Hide tracks' className='LikeButton' onClick={unfold}/> }
+          {!Unfold ? <VscIcons.VscFoldDown title='See tracks' className='UnfoldButton' onClick={unfold}/> :
+                    <VscIcons.VscFoldUp title='Hide tracks' className='UnfoldButton' onClick={unfold}/> }
         </div>
   
         {Unfold ?<Tracklist tracks={Tracks} token={token} Playlists={playlists}/> : <div></div>}

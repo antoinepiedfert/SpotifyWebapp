@@ -73,7 +73,7 @@ function Reports({token, playlists}) {
     if (Genres.length > 0 && !New && !Hipster) {url += '%20genre:' + Genres.join('%20')}
     if (New) {url += '%20tag:new'}
     if (Hipster) {url += '%20tag:hipster'}
-    if (New || Hipster) {url += '&type=album&limit=50'} else {url += '&type=track&limit=50'}
+    if (New || Hipster) {url += '&type=album&limit=49'} else {url += '&type=track&limit=49'}
     console.log(url)
     setUrl(url)
   }, [Year, Artist, Keyword, Genres, New, Hipster])
