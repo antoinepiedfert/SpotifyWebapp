@@ -37,6 +37,13 @@ function Reports({token, playlists}) {
   "spanish", "study", "summer", "swedish", "synth-pop", "tango", "techno", "trance", "trip-hop", "turkish",
   "work-out", "world-music"]
 
+  const options = available_genres.map((genre, index) => {
+    return {
+    label: genre,
+    value: genre,
+    key: index
+    }})
+
   function Search() {
     setDisplayT(false)
     setDisplayA(false)

@@ -16,6 +16,7 @@ function Tracklist( {tracks, token, Playlists} ) {
   const [Ids, setIds] = useState([])
   const [Tracks, setTracks] = useState(tracks)
   const [Improvedtracks, setImprovedtracks] = useState(false)
+  const [Offset, setOffset] = useState(10)
 
     function findMusicaldatabyId(id) { 
       if (Previews.length > 0) {
@@ -147,16 +148,13 @@ function Tracklist( {tracks, token, Playlists} ) {
     .catch(error => console.error('(1) Inside error:', error))
     }
 
-    const options = [{value:'Filter by...', label:'Filter by...'},{value:'BPM', label:'BPM'}, {value:'name', label:'name'},
+    const options = [{value:'BPM', label:'BPM'}, {value:'name', label:'name'},
                     {value:'artist', label:'artist'}, {value:'popularity', label:'popularity'},
                     {value:'release date', label:'release date'}, {value:'duration', label:'duration'},]
 
     function handleChange(event) {
       console.log(event.value)
       let sortedtracks = [...tracks]
-      console.log(' BEFORE SORTING', sortedtracks)
-      //for (let i =0 ; i < sortedtracks.length ; i++) {console.log(sortedtracks[i].name)
-      //                                                console.log(sortedtracks[i].audio_features.tempo)}
       if (event.value === 'BPM') {
         sortedtracks = sortedtracks.sort(
           (t1, t2) => (t1.audio_features.tempo < t2.audio_features.tempo) ? 1 :
@@ -180,12 +178,17 @@ function Tracklist( {tracks, token, Playlists} ) {
       setTracks(sortedtracks) 
     }
 
+    const handleScroll = event => {
+      //const top = event.target.scrollTop < 1;
+      const bottom = event.target.scrollHeight - event.target.scrollTop - event.target.clientHeight < 1;
+    if (bottom) { setOffset(Offset + 10) }
+    //if (top) { if (Offset > 10) {setOffset(Offset - 10)} }
+    };
    
   if (DisplayPreviews && DisplayBPM && DisplayLikes && Improvedtracks && Tracks.length > 0) {
     return (
-    <div>
-      <div class="box">
-        <Select onChange={(e) => handleChange(e)} options={options} theme={(theme) => ({
+    <div onScroll={handleScroll} style={{width:'1000px'}}>
+        <Select placeholder='Filter by...' onChange={(e) => handleChange(e)} options={options} theme={(theme) => ({
                                                                                         ...theme,
                                                                                         borderRadius: 0,
                                                                                         colors: {
@@ -206,10 +209,14 @@ function Tracklist( {tracks, token, Playlists} ) {
                                                                                       })
                                                                             }
         />
-      </div>
-    <ul >
-        {Tracks.map((track) => (
-        <li className='tracklist-text'>
+    <ul style={{
+          height: '900px',
+          width: '1200px',
+          overflow: 'scroll',
+          overflowX: 'hidden'}}
+          onScroll={handleScroll}>
+        {Tracks.slice(0, Offset).map((track) => (
+        <li  className='tracklist-text'>
         <Track token={token} track={track} Playlists={Playlists} />
         </li>
         ))}

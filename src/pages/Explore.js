@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../App.css';
 import { useEffect, useState } from 'react'
 import Tracklist from '../components/Tracklist'
+import Select from 'react-select'
 
 
 function Explore({token, playlists, MyPlaylists}) {
@@ -11,7 +12,7 @@ function Explore({token, playlists, MyPlaylists}) {
     const [Playlist, setPlaylist] = useState([])
     const [Tracks, setTracks] = useState([])
     const [Display, setDisplay] = useState(false)
-
+    const [Options, setOptions] = useState()
     
       const ImportPlaylist = async(playlist, id, offset) => {
         if (token) {
@@ -50,15 +51,55 @@ function Explore({token, playlists, MyPlaylists}) {
     function handleChange(event) {
         setPlaylist([])
         setDisplay(false)
-        ImportPlaylist([], event.target.value, 0)
+        ImportPlaylist([], event.value, 0)
     }
+
+    useEffect(()=> {
+        const options = playlists.map((playlist, index) => {
+            return {
+               label: playlist.name,
+               value: playlist.id,
+               key: index
+            }
+       })
+        console.log(options)
+    }, [])
     
+    //</Select> : <></>}
+    //{playlists.map(playlist => <option value={playlist.id}>{playlist.name}</option>)}
+
     return (
     <div className='App-header'>
         {playlists ?
-        <select className='select-box' onChange={(e) => handleChange(e)}>
-        {playlists.map(playlist => <option value={playlist.id}>{playlist.name}</option>)}
-        </select> : <></>}
+        <div className='box'> 
+        <Select placeholder='Select a playlist' onChange={(e) => handleChange(e)} options={playlists.map((playlist, index) => {
+                                                                return {
+                                                                label: playlist.name,
+                                                                value: playlist.id,
+                                                                key: index
+                                                                }})}
+                                                            theme={(theme) => ({
+                                                            ...theme,
+                                                            borderRadius: 0,
+                                                            colors: {
+                                                            ...theme.colors,
+                                                            primary25: '#5D5D81',
+                                                            primary: '#5D5D81',
+                                                            neutral0: '#3B3355',
+                                                            neutral90: 'white',
+                                                            neutral10: 'white',
+                                                            neutral20: 'white',
+                                                            neutral30: 'white',
+                                                            neutral40: 'white',
+                                                            neutral50: 'white',
+                                                            neutral60: 'white',
+                                                            neutral70: 'white',
+                                                            neutral80: 'white',
+                                                            },
+                                                        })
+} /> </div>:<></>}
+        
+        
         {Display ? <Tracklist tracks={Tracks} token={token} Playlists={MyPlaylists}/> : <></>}
     </div>
   )

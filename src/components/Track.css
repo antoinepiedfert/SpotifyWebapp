@@ -3,12 +3,11 @@
     border-width: 2px;
     border-style: solid;
     border-radius: 10px;
-    min-width: 50vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 15vh;
-    width: 75%;
+    width: 80%;
     
 }
 
