@@ -1,11 +1,14 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import Track from './Track'
 import '../App.css'
 import Select from 'react-select'
+import { UserContext } from '../App'
 
-function Tracklist( {tracks, token, Playlists} ) {
+function Tracklist( {tracks, Playlists} ) {
+
+  const {token, logout} = useContext(UserContext);
 
   const [Previews, setPreviews] = useState({})
   const [Musicaldata, setMusicaldata] = useState({})
@@ -65,7 +68,7 @@ function Tracklist( {tracks, token, Playlists} ) {
     },[Likes])
 
     useEffect(()=> {
-      console.log(DisplayBPM , DisplayLikes , DisplayPreviews , !Improvedtracks, DisplayBPM && DisplayLikes && DisplayPreviews && !Improvedtracks)
+      //console.log(DisplayBPM , DisplayLikes , DisplayPreviews , !Improvedtracks, DisplayBPM && DisplayLikes && DisplayPreviews && !Improvedtracks)
       if (DisplayBPM && DisplayLikes && DisplayPreviews && !Improvedtracks){
         for (let i=0 ; i<tracks.length ; i++){
           tracks[i]['audio_features'] = findPreviewsbyId(tracks[i].id)
@@ -73,7 +76,7 @@ function Tracklist( {tracks, token, Playlists} ) {
           tracks[i]['liked'] = Likes[i]
         }
         setTracks(tracks)
-        console.log(tracks)
+        //console.log(tracks)
         setImprovedtracks(true)
       }
     },[DisplayBPM, DisplayLikes, DisplayPreviews])
@@ -98,7 +101,8 @@ function Tracklist( {tracks, token, Playlists} ) {
           setPreviews(new_preview)        }
   }
      })
-     .catch(error => console.error('(1) Inside error:', error))
+     .catch(error => {console.error('(1) Inside error:', error)
+                      logout()})
     }
 
     function BPM(ids, offset, previews) {
@@ -120,7 +124,8 @@ function Tracklist( {tracks, token, Playlists} ) {
       }
   }
      })
-     .catch(error => console.error('(1) Inside error:', error))
+     .catch(error => {console.error('(1) Inside error:', error)
+                      logout()})
     }
 
     function Like(ids, offset, previews) {
@@ -145,7 +150,8 @@ function Tracklist( {tracks, token, Playlists} ) {
         }
     }
     })
-    .catch(error => console.error('(1) Inside error:', error))
+    .catch(error => {console.error('(1) Inside error:', error)
+                      logout()})
     }
 
     const options = [{value:'BPM', label:'BPM'}, {value:'name', label:'name'},
@@ -153,7 +159,6 @@ function Tracklist( {tracks, token, Playlists} ) {
                     {value:'release date', label:'release date'}, {value:'duration', label:'duration'},]
 
     function handleChange(event) {
-      console.log(event.value)
       let sortedtracks = [...tracks]
       if (event.value === 'BPM') {
         sortedtracks = sortedtracks.sort(

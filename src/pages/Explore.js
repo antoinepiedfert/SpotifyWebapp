@@ -1,12 +1,14 @@
 import React from 'react'
 import axios from 'axios';
 import '../App.css';
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import Tracklist from '../components/Tracklist'
 import Select from 'react-select'
+import { UserContext } from '../App'
 
+function Explore({ playlists}) {
 
-function Explore({token, playlists, MyPlaylists}) {
+    const {token, logout, MyPlaylists} = useContext(UserContext);
 
     const [Playlists, setPlaylists] = useState(playlists)
     const [Playlist, setPlaylist] = useState([])
@@ -30,7 +32,8 @@ function Explore({token, playlists, MyPlaylists}) {
                 } else {
                     setPlaylist(new_playlist)
                 }
-            }).catch(error => {console.log(error)})
+            }).catch(error => {console.log(error)
+                                logout()})
         }
       }
 
@@ -62,7 +65,6 @@ function Explore({token, playlists, MyPlaylists}) {
                key: index
             }
        })
-        console.log(options)
     }, [])
     
     //</Select> : <></>}

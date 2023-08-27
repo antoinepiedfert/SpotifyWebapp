@@ -7,6 +7,10 @@ import axios from 'axios';
 
 export default function PlusButton({token, Playlists, TrackURI}) {
 
+  console.log('token', token)
+  console.log('Playlists', Playlists)
+  console.log('TrackURI', TrackURI)
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

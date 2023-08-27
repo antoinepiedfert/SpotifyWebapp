@@ -1,12 +1,15 @@
 import React from 'react'
 import '../App.css'
 import axios from 'axios';
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useContext} from 'react';
 import '../components/Tracklist.css'
 import Tracklist from '../components/Tracklist'
 import Albumlist from '../components/Albumlist'
+import { UserContext } from '../App'
 
-function Reports({token, playlists}) {
+function Reports() {
+
+  const {token, logout, MyPlaylists} = useContext(UserContext);
 
   const [DataA, setDataA] = useState([])
   const [DataT, setDataT] = useState([])
@@ -51,10 +54,11 @@ function Reports({token, playlists}) {
     const request = axios.get('https://api.spotify.com/v1/search?q=' + Url , config) 
 
    request
-   .then(result => {  console.log(result)
+   .then(result => {
                       if (New || Hipster){setDataA(result.data.albums.items)} else {setDataT(result.data.tracks.items)}
                     })
-   .catch(error => console.error('(1) Inside error:', error))
+   .catch(error => {console.error('(1) Inside error:', error)
+                    logout()})
   }
 
   const handleChangeK = (event) => {
@@ -81,7 +85,7 @@ function Reports({token, playlists}) {
     if (New) {url += '%20tag:new'}
     if (Hipster) {url += '%20tag:hipster'}
     if (New || Hipster) {url += '&type=album&limit=49'} else {url += '&type=track&limit=49'}
-    console.log(url)
+    //console.log(url)
     setUrl(url)
   }, [Year, Artist, Keyword, Genres, New, Hipster])
 
@@ -138,8 +142,8 @@ function Reports({token, playlists}) {
       <button className='button-34' onClick={Search}> Search </button>
 
       {Genres.map(genre => <div><button className='button-34' onClick={() => {removegenre(genre)}}> {genre} </button></div>)}
-      {DisplayT ? <Tracklist tracks={DataT} token={token} Playlists={playlists}/> : <></>}
-      {DisplayA ? <Albumlist albums={DataA} token={token} playlists={playlists}/> : <></>}
+      {DisplayT ? <Tracklist tracks={DataT} token={token} Playlists={MyPlaylists}/> : <></>}
+      {DisplayA ? <Albumlist albums={DataA} token={token} playlists={MyPlaylists}/> : <></>}
     </div>)
 
 

@@ -7,7 +7,7 @@ import Advanced from './pages/Advanced'
 import Explore from './pages/Explore'
 import Navbar from './components/Navbar';
 import './pages/Homepage.css';
-import {useEffect, useState} from 'react';
+import {useEffect, useState, createContext} from 'react';
 import axios from 'axios';
 
 function App() {
@@ -57,7 +57,6 @@ function App() {
             }
             setMyPlaylists(new_Myplaylists)
         }
-
         setDisplay(true)}
       }, [Playlists])
 
@@ -66,7 +65,9 @@ function App() {
         await axios.get("https://api.spotify.com/v1/me", 
         {
             headers: {Authorization: `Bearer ${token}`}
-        }).then(response => {setMe(response.data)})
+        }).then(response => {
+          setMe(response.data)}).catch(error  => {console.log(error)
+                                                  logout()})
     }
   }
 
@@ -75,10 +76,9 @@ function App() {
         return await axios.get("https://api.spotify.com/v1/users/" + Me.id + "/playlists?limit=50", 
         {
             headers: {Authorization: `Bearer ${token}`}
-        }).then(response => {
-            setPlaylists(response.data.items)
-            console.log(response.data.item)
-        })
+        }).then(response => {setPlaylists(response.data.items)})
+          .catch(error  => {console.log(error)
+                            logout()})
     }
   }
 
@@ -89,26 +89,32 @@ function App() {
       window.localStorage.removeItem("token")
   }
 
+
+
   return (
   <div>
-    <Router>
-        <Navbar logout={logout} token={token}/>
-        {!Display? <div className='App-header'>
-          <a style={{ textDecoration: 'none', color:'white' }} href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE.join('%20')}&response_type=${RESPONSE_TYPE}`}>Login
-                      to Spotify</a>
-                  </div>:
-        <Routes>
-            <Route path='/' exact element={<Homepage Me={Me}/>}/>
-            <Route path='/search' element={<Reports token={token} playlists={MyPlaylists}/>}/>
-            <Route path='/askchatgpt' element={<Askchatgpt/>}/>
-            <Route path='/inspiration' element={<Advanced token={token} Playlists={MyPlaylists}/>}/>
-            <Route path='/explore' element={<Explore token={token} playlists={Playlists} MyPlaylists={MyPlaylists}/>}/>
-        </Routes>}
-    </Router> 
-    
+    <UserContext.Provider value={{token, logout, MyPlaylists}}>
+      <Router>
+          <Navbar logout={logout} token={token}/>
+          {!Display? <div className='App-header'>
+            <a style={{ textDecoration: 'none', color:'white' }} href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE.join('%20')}&response_type=${RESPONSE_TYPE}`}>Login
+                        to Spotify</a>
+                    </div>:
+          <Routes>
+              <Route path='/' exact element={<Homepage Me={Me}/>}/>
+              <Route path='/search' element={<Reports />}/>
+              <Route path='/askchatgpt' element={<Askchatgpt/>}/>
+              <Route path='/inspiration' element={<Advanced />}/>
+              <Route path='/explore' element={<Explore playlists={Playlists}/>}/>
+              
+          </Routes>
+          }
+      </Router> 
+      </UserContext.Provider>
   </div>
     
   );
 }
 
+export const UserContext = createContext()
 export default App;

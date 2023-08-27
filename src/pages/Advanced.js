@@ -1,12 +1,15 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import '../App.css'
 import '../components/Advanced.css'
 import Slider from '../components/Slider'
 import axios from 'axios';
 import Tracklist from '../components/Tracklist'
+import { UserContext } from '../App'
 
-function Advanced( {token, Playlists} ) {
+function Advanced() {
+
+    const {token, logout, MyPlaylists} = useContext(UserContext);
 
     const ENDPOINT = 'https://api.spotify.com/v1'
     const [Happiness, setHappiness] = useState(0)
@@ -56,7 +59,6 @@ function Advanced( {token, Playlists} ) {
         setArtistID('')
         setSearchover(false)
         setTracks(false)
-        console.log('Artist:', Artist)
         const config = {
             headers:{'Authorization': `Bearer ${token}`}
           };
@@ -71,12 +73,13 @@ function Advanced( {token, Playlists} ) {
          .catch(error => {
             setArtistID('');
             setSearchover(true)
+            logout()
             }
             )
     }        
     
     function Extensivesearch() {
-      console.log(ENDPOINT + '/recommendations?' + Url )
+      //console.log(ENDPOINT + '/recommendations?' + Url )
         const config = {
             headers:{'Authorization': `Bearer ${token}`}
           };
@@ -88,7 +91,8 @@ function Advanced( {token, Playlists} ) {
             setTracks(result.data.tracks)
             setSearchover(false)
          })
-         .catch(error => console.log(error))
+         .catch(error => {console.log(error)
+                          logout()})
     }   
 
     useEffect(() => {
@@ -159,7 +163,7 @@ function Advanced( {token, Playlists} ) {
       </div> 
       <div> 
         <div className='child-do'>
-        {Tracks ? <Tracklist tracks={Tracks} token={token} Playlists={Playlists}/> : <></>}
+        {Tracks ? <Tracklist tracks={Tracks} token={token} Playlists={MyPlaylists}/> : <></>}
         </div>
         </div>
     </div>

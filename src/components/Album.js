@@ -1,13 +1,16 @@
 import './Album.css'
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import { IconContext } from "react-icons";
 import * as PiIcons from 'react-icons/pi';
 import * as VscIcons from 'react-icons/vsc';
 import axios from 'axios';
 import Tracklist from './Tracklist'
+import { UserContext } from '../App'
 
-function Album({album, token, playlists}) {
+function Album({album, playlists}) {
     
+    const {token, logout} = useContext(UserContext)
+
     const [Artists, setArtists] = useState([])
     const [Unfold, setUnfold] = useState(false)
     const [Tracks, setTracks] = useState([])
@@ -31,17 +34,19 @@ function Album({album, token, playlists}) {
       const config = {headers:{'Authorization': `Bearer ${token}`}};
       const request = axios.get('https://api.spotify.com/v1/albums/' + album.id , config) 
 
-      request.then(result => {let tracks = result.data.tracks.items
-                              console.log(result.data.tracks.items)
-                              for (let i=0 ; i<tracks.length ; i++) {tracks[i].album = album}
-                              console.log(tracks)
-                              setTracks(tracks)})
+      request
+      .then(result => {let tracks = result.data.tracks.items
+                        for (let i=0 ; i<tracks.length ; i++) {tracks[i].album = album}
+                        setTracks(tracks)
+                      })
+      .catch(error => {console.error('(1) Inside error:', error)
+                       logout()})
 
       
     }
 
     useEffect(() => { 
-      console.log(Tracks)
+      //console.log(Tracks)
       if (Tracks.length > 0) {
       setUnfold(!Unfold)} }, [Tracks])
 
